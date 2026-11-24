@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Laboratorio interactivo para aprender Insertion Sort en Python mediante razonamiento guiado y dos ciclos for."
+    >
+
+    <meta name="theme-color" content="#0f172a">
+
+    <title>
+        Insertion Sort | Laboratorio de Algoritmos
+    </title>
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Lógica de la aplicación -->
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         ACCESIBILIDAD
+         ========================================== -->
+
+    <a class="skip-link" href="#mission-view">
+        Saltar al contenido principal
+    </a>
+
+
+    <!-- ==========================================
+         ENCABEZADO PRINCIPAL
+         ========================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <div class="brand">
+
+                <div
+                    class="brand-icon"
+                    aria-hidden="true"
+                >
+                    { }
+                </div>
+
+                <div class="brand-content">
+
+                    <span class="brand-eyebrow">
+                        LABORATORIO DE ALGORITMOS
+                    </span>
+
+                    <h1 class="brand-title">
+                        Insertion Sort
+                    </h1>
+
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <span class="header-badge">
+                    Python
+                </span>
+
+                <span class="header-badge">
+                    Dos ciclos for
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         CONTENIDO DE LA APLICACIÓN
+         ========================================== -->
+
+    <div class="app-layout">
+
+
+        <!-- ======================================
+             BARRA LATERAL
+             ====================================== -->
+
+        <aside
+            class="sidebar"
+            aria-label="Navegación del laboratorio"
+        >
+
+            <div class="sidebar-heading">
+
+                <span class="sidebar-eyebrow">
+                    APRENDE PASO A PASO
+                </span>
+
+                <h2>
+                    Tu recorrido
+                </h2>
+
+                <p>
+                    Descubre cómo construir Insertion
+                    Sort sin memorizar su código.
+                </p>
+
+            </div>
+
+
+            <!-- Progreso del alumno -->
+
+            <section
+                class="progress-section"
+                aria-label="Progreso de aprendizaje"
+            >
+
+                <div class="progress-heading">
+
+                    <span>
+                        Tu progreso
+                    </span>
+
+                    <strong
+                        id="progress-percent"
+                        aria-live="polite"
+                    >
+                        0%
+                    </strong>
+
+                </div>
+
+                <div
+                    class="progress-track"
+                    role="progressbar"
+                    aria-label="Misiones completadas"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                >
+
+                    <div
+                        id="progress-fill"
+                        class="progress-fill"
+                        style="width: 0%"
+                    ></div>
+
+                </div>
+
+                <p class="progress-description">
+                    Completa cada misión para
+                    desbloquear la siguiente.
+                </p>
+
+            </section>
+
+
+            <!--
+                El script.js genera los botones
+                de navegación de forma dinámica.
+
+                Contiene:
+                - Misión 1
+                - Misión 2
+                - Misión 3
+                - Misión 4
+                - Misión 5
+                - Misión 6
+                - Misión 7
+                - Reto final
+            -->
+
+            <nav
+                id="mission-nav"
+                class="mission-nav"
+                aria-label="Misiones disponibles"
+            >
+
+                <p class="loading-message">
+                    Cargando misiones...
+                </p>
+
+            </nav>
+
+
+            <!-- Información y acciones -->
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-tip">
+
+                    <span
+                        class="tip-icon"
+                        aria-hidden="true"
+                    >
+                        ✦
+                    </span>
+
+                    <p>
+                        <strong>
+                            Aprende razonando.
+                        </strong>
+
+                        Cada pregunta te acerca
+                        a construir tu propio
+                        algoritmo.
+                    </p>
+
+                </div>
+
+                <button
+                    id="reset-progress"
+                    class="reset-button"
+                    type="button"
+                >
+                    <span aria-hidden="true">
+                        ↺
+                    </span>
+
+                    Reiniciar progreso
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ======================================
+             ÁREA PRINCIPAL
+             ====================================== -->
+
+        <main
+            class="workspace"
+            id="main-content"
+        >
+
+            <!-- Introducción al laboratorio -->
+
+            <section
+                class="workspace-intro"
+                aria-labelledby="lab-heading"
+            >
+
+                <div class="intro-eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    APRENDIZAJE INTERACTIVO
+
+                </div>
+
+                <h2 id="lab-heading">
+                    Descubre el algoritmo.
+                    <span>
+                        No lo memorices.
+                    </span>
+                </h2>
+
+                <p>
+                    Aprende a resolver Insertion Sort
+                    construyendo su lógica paso a paso.
+
+                    Primero razonarás cómo ordenar
+                    los elementos y después descubrirás
+                    cómo expresar esa solución mediante
+                    dos ciclos
+                    <code>for</code>.
+                </p>
+
+
+                <!-- Características -->
+
+                <div class="intro-features">
+
+                    <div class="feature-item">
+
+                        <span
+                            class="feature-icon"
+                            aria-hidden="true"
+                        >
+                            ◈
+                        </span>
+
+                        <span>
+                            7 misiones guiadas
+                        </span>
+
+                    </div>
+
+                    <div class="feature-item">
+
+                        <span
+                            class="feature-icon"
+                            aria-hidden="true"
+                        >
+                            ◉
+                        </span>
+
+                        <span>
+                            Simulador interactivo
+                        </span>
+
+                    </div>
+
+                    <div class="feature-item">
+
+                        <span
+                            class="feature-icon"
+                            aria-hidden="true"
+                        >
+                            ⌘
+                        </span>
+
+                        <span>
+                            Reto final en Python
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 CONTENEDOR DE LAS MISIONES
+                 ================================== -->
+
+            <section
+                id="mission-view"
+                class="main-panel"
+                aria-label="Actividad de aprendizaje"
+                aria-live="polite"
+                aria-relevant="additions text"
+                tabindex="-1"
+            >
+
+                <!--
+                    script.js renderiza aquí:
+
+                    1. Título y explicación de misión.
+                    2. Diagrama del arreglo.
+                    3. Preguntas de razonamiento.
+                    4. Opciones de respuesta.
+                    5. Pistas y retroalimentación.
+                    6. Simulador de Insertion Sort.
+                    7. Editor de código Python.
+                    8. Resultados de pruebas.
+
+                    El contenido se genera
+                    mediante renderMission()
+                    o renderChallenge().
+                -->
+
+                <div class="initial-loading">
+
+                    <div
+                        class="loading-spinner"
+                        aria-hidden="true"
+                    ></div>
+
+                    <p>
+                        Preparando tu laboratorio...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- Mensaje pedagógico -->
+
+            <section
+                class="learning-footer"
+                aria-label="Objetivo de aprendizaje"
+            >
+
+                <div
+                    class="learning-footer-icon"
+                    aria-hidden="true"
+                >
+                    ✧
+                </div>
+
+                <div>
+
+                    <strong>
+                        El objetivo no es escribir
+                        código rápidamente.
+                    </strong>
+
+                    <p>
+                        Es comprender qué problema
+                        resuelve cada instrucción
+                        para poder reconstruir
+                        el algoritmo por tu cuenta.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ==========================================
+         DIÁLOGO PARA REINICIAR PROGRESO
+         ========================================== -->
+
+    <dialog
+        id="reset-dialog"
+        class="reset-dialog"
+        aria-labelledby="reset-dialog-title"
+        aria-describedby="reset-dialog-description"
+    >
+
+        <form method="dialog">
+
+            <div class="dialog-icon" aria-hidden="true">
+                ↺
+            </div>
+
+            <h2 id="reset-dialog-title">
+                ¿Reiniciar el laboratorio?
+            </h2>
+
+            <p id="reset-dialog-description">
+                Se eliminará el progreso de
+                las misiones y se restaurará
+                el código inicial.
+
+                Esta acción no se puede deshacer.
+            </p>
+
+            <div class="dialog-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-outline"
+                    value="cancel"
+                >
+                    Conservar progreso
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                    value="confirm"
+                >
+                    Reiniciar actividad
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+
+    <!-- ==========================================
+         PIE DE PÁGINA
+         ========================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <p>
+                Laboratorio de Algoritmos
+                · Insertion Sort
+            </p>
+
+            <p>
+                Aprende · Experimenta · Programa
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
