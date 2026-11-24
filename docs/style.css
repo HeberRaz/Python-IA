@@ -1,0 +1,545 @@
+
+/* ============================================================
+   PYTHON-IA · LABORATORIO DE ALGORITMOS
+   Página principal
+
+   01. Design tokens
+   02. Reset y estilos globales
+   03. Header
+   04. Contenido principal
+   05. Presentación y características
+   06. Actividades
+   07. Footer
+   08. Responsive
+   09. Accesibilidad
+   ============================================================ */
+
+
+/* ============================================================
+   01. DESIGN TOKENS
+   ============================================================ */
+
+:root {
+    color-scheme: dark;
+
+    /* Backgrounds */
+    --background: #0b1220;
+    --surface: #111c2e;
+    --surface-raised: #172840;
+
+    /* Borders */
+    --border: #334155;
+
+    /* Typography */
+    --text: #f1f5f9;
+    --muted: #cbd5e1;
+    --subtle: #94a3b8;
+
+    /* Accent colors */
+    --accent: #60a5fa;
+    --accent-strong: #2563eb;
+    --success: #4ade80;
+
+    /* Layout */
+    --content-width: 1120px;
+    --radius: 16px;
+
+    /* Motion */
+    --transition-fast: 180ms ease;
+
+    /* Fonts */
+    --font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    --font-mono:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+}
+
+
+/* ============================================================
+   02. RESET Y ESTILOS GLOBALES
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    font-family: var(--font-family);
+    line-height: 1.6;
+
+    color: var(--text);
+    background: var(--background);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+code {
+    font-family: var(--font-mono);
+
+    padding: 2px 5px;
+    border-radius: 4px;
+
+    background: var(--surface-raised);
+    color: var(--text);
+}
+
+::selection {
+    background: var(--accent-strong);
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   03. HEADER
+   ============================================================ */
+
+.header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    width: min(
+        var(--content-width),
+        calc(100% - 40px)
+    );
+
+    min-height: 82px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+    background: #263449;
+
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.eyebrow {
+    display: block;
+
+    color: var(--subtle);
+
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.brand-title {
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.header-tag {
+    padding: 5px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   04. CONTENIDO PRINCIPAL
+   ============================================================ */
+
+main {
+    width: min(
+        var(--content-width),
+        calc(100% - 40px)
+    );
+
+    margin: 0 auto;
+    padding: 72px 0 96px;
+}
+
+
+/* ============================================================
+   05. PRESENTACIÓN Y CARACTERÍSTICAS
+   ============================================================ */
+
+.section-kicker {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--accent);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.section-kicker::before {
+    content: "";
+
+    display: block;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+h1 {
+    margin: 20px 0 18px;
+
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+    line-height: 1.12;
+}
+
+h1 span {
+    color: var(--accent);
+}
+
+.lead {
+    max-width: 740px;
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Feature badges */
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+    margin-top: 26px;
+}
+
+.feature {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: var(--surface);
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.feature-symbol {
+    color: var(--accent);
+}
+
+
+/* ============================================================
+   06. ACTIVIDADES
+   ============================================================ */
+
+/* Section heading */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    gap: 12px;
+    margin: 64px 0 18px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 21px;
+    letter-spacing: -0.025em;
+}
+
+.section-heading p {
+    margin: 0;
+
+    color: var(--subtle);
+    font-size: 12px;
+}
+
+/* Course card */
+
+.course-card {
+    display: flex;
+    align-items: center;
+
+    gap: 24px;
+    padding: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+
+    transition:
+        border-color var(--transition-fast),
+        transform var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.course-card:hover {
+    background: var(--surface-raised);
+    border-color: var(--accent);
+
+    transform: translateY(-2px);
+}
+
+/* Course visualization */
+
+.course-visual {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    gap: 9px;
+    padding: 24px 14px;
+
+    width: 180px;
+    min-width: 180px;
+    height: 120px;
+
+    border-radius: 12px;
+
+    background: #0d1930;
+}
+
+/* Sorting bars */
+
+.bar {
+    width: 23px;
+
+    border-radius: 6px 6px 3px 3px;
+    background: var(--accent);
+}
+
+.bar:nth-child(1) {
+    height: 32px;
+}
+
+.bar:nth-child(2) {
+    height: 49px;
+}
+
+.bar:nth-child(3) {
+    height: 67px;
+}
+
+.bar:nth-child(4) {
+    height: 83px;
+}
+
+.bar:nth-child(5) {
+    height: 96px;
+    background: var(--success);
+}
+
+/* Course content */
+
+.course-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.course-label {
+    display: block;
+
+    color: var(--accent);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.course-body h3 {
+    margin: 6px 0;
+
+    font-size: 24px;
+    letter-spacing: -0.02em;
+}
+
+.course-body p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.open-label {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+    margin-top: 16px;
+
+    color: var(--accent);
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+
+/* ============================================================
+   07. FOOTER
+   ============================================================ */
+
+.footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    width: min(
+        var(--content-width),
+        calc(100% - 40px)
+    );
+
+    margin: 0 auto;
+    padding: 20px 0;
+
+    color: var(--subtle);
+    font-size: 12px;
+}
+
+.footer-inner p {
+    margin: 0;
+}
+
+
+/* ============================================================
+   08. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+
+    .header-tag {
+        display: none;
+    }
+
+    main {
+        padding: 48px 0 64px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .course-card {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 18px;
+    }
+
+    .course-visual {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 4px;
+    }
+}
+
+
+/* ============================================================
+   09. ACCESIBILIDAD
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
