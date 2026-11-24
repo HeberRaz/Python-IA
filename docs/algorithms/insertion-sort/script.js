@@ -26,6 +26,17 @@ const PYODIDE_BASE_URL =
 
 const EXECUTION_TIMEOUT_MS = 25000;
 
+const FORMSPREE_ENDPOINT =
+  'https://formspree.io/f/mjywjano';
+
+// Conserva el resultado más reciente de las pruebas.
+// No representa una calificación verificada.
+let latestTestResults = null;
+let codeRevision = 0;
+
+let isSubmitting = false;
+
+
 // ============================================================
 // 2. PLANTILLAS DE PYTHON
 // ============================================================
@@ -973,11 +984,11 @@ function loadState() {
 
     const completed = Array.isArray(saved.completed)
       ? saved.completed.filter(
-          index =>
-            Number.isInteger(index) &&
-            index >= 0 &&
-            index < MISSIONS.length
-        )
+        index =>
+          Number.isInteger(index) &&
+          index >= 0 &&
+          index < MISSIONS.length
+      )
       : [];
 
     const unlocked = completed.filter(
@@ -1007,13 +1018,13 @@ function loadState() {
 
       answers:
         saved.answers &&
-        typeof saved.answers === 'object'
+          typeof saved.answers === 'object'
           ? saved.answers
           : {},
 
       hints:
         saved.hints &&
-        typeof saved.hints === 'object'
+          typeof saved.hints === 'object'
           ? saved.hints
           : {},
 
@@ -1336,16 +1347,15 @@ function renderLegend(includeShift = false) {
         Seleccionado / hueco
       </span>
 
-      ${
-        includeShift
-          ? `
+      ${includeShift
+      ? `
             <span>
               <i class="dot blue"></i>
               Desplazado
             </span>
           `
-          : ''
-      }
+      : ''
+    }
     </div>
   `;
 }
@@ -1599,9 +1609,8 @@ function renderNavigation() {
   links.push(`
     <button
       type="button"
-      class="mission-link ${
-        state.stage === MISSIONS.length ? 'active' : ''
-      }"
+      class="mission-link ${state.stage === MISSIONS.length ? 'active' : ''
+    }"
       data-stage="${MISSIONS.length}"
       ${areAllMissionsCompleted() ? '' : 'disabled'}
     >
@@ -1693,9 +1702,9 @@ function renderConceptCard(index) {
       ${renderArray(example.values, example)}
       ${renderLegend()}
       ${renderVariablePanel({
-        ...example,
-        showPosition: index >= 5
-      })}
+    ...example,
+    showPosition: index >= 5
+  })}
     </div>
   `;
 }
@@ -1734,7 +1743,7 @@ function renderAnswerFeedback(mission, selected) {
   const message = correct
     ? mission.explanation
     : 'Esa opción no conserva todas las propiedades necesarias. ' +
-      'Revisa las preguntas o consulta una pista.';
+    'Revisa las preguntas o consulta una pista.';
 
   return `
     <div
@@ -1742,11 +1751,10 @@ function renderAnswerFeedback(mission, selected) {
       role="status"
     >
       <strong>
-        ${
-          correct
-            ? '✓ ¡Bien razonado!'
-            : '↻ Revisa tu razonamiento'
-        }
+        ${correct
+      ? '✓ ¡Bien razonado!'
+      : '↻ Revisa tu razonamiento'
+    }
       </strong>
 
       ${escapeHtml(message)}
@@ -1767,7 +1775,7 @@ function renderQuestionCard(mission, index) {
           ? 'correct'
           : '',
         selected === optionIndex &&
-        selected !== mission.correct
+          selected !== mission.correct
           ? 'incorrect'
           : ''
       ].filter(Boolean).join(' ');
@@ -1829,22 +1837,20 @@ function renderQuestionCard(mission, index) {
           class="btn btn-ghost"
           data-action="toggle-hint"
         >
-          ✧ ${
-            state.hints[index]
-              ? 'Ocultar pista'
-              : 'Necesito una pista'
-          }
+          ✧ ${state.hints[index]
+      ? 'Ocultar pista'
+      : 'Necesito una pista'
+    }
         </button>
 
-        ${
-          completed
-            ? `
+        ${completed
+      ? `
               <span class="status good">
                 ✓ Misión completada
               </span>
             `
-            : ''
-        }
+      : ''
+    }
       </div>
     </div>
   `;
@@ -1903,11 +1909,10 @@ function renderMission() {
       </button>
 
       <span class="step-note">
-        ${
-          completed
-            ? '¡Reto desbloqueado! Continúa.'
-            : 'Responde correctamente para avanzar.'
-        }
+        ${completed
+      ? '¡Reto desbloqueado! Continúa.'
+      : 'Responde correctamente para avanzar.'
+    }
       </span>
 
       <button
@@ -1916,11 +1921,10 @@ function renderMission() {
         data-action="next"
         ${completed ? '' : 'disabled'}
       >
-        ${
-          index === MISSIONS.length - 1
-            ? 'Ir al reto final →'
-            : 'Siguiente misión →'
-        }
+        ${index === MISSIONS.length - 1
+      ? 'Ir al reto final →'
+      : 'Siguiente misión →'
+    }
       </button>
     </div>
   `;
@@ -1950,9 +1954,9 @@ function renderSimulator() {
       ${renderArray(step.values, step)}
       ${renderLegend(true)}
       ${renderVariablePanel({
-        ...step,
-        showPosition: true
-      })}
+    ...step,
+    showPosition: true
+  })}
 
       <p class="slide-explain">
         ${escapeHtml(step.description)}
@@ -1981,12 +1985,11 @@ function renderSimulator() {
           type="button"
           class="btn btn-ghost"
           data-action="simulation-next"
-          ${
-            state.simulationStep ===
-            SIMULATION_STEPS.length - 1
-              ? 'disabled'
-              : ''
-          }
+          ${state.simulationStep ===
+      SIMULATION_STEPS.length - 1
+      ? 'disabled'
+      : ''
+    }
         >
           Siguiente →
         </button>
@@ -2138,6 +2141,97 @@ function renderChallenge() {
         ></div>
       </div>
 
+      
+<section class="submission-card">
+  <div class="card-heading">
+    <span class="section-label">
+      ENTREGA DE ACTIVIDAD
+    </span>
+  </div>
+
+  <h3>Envía tu solución</h3>
+
+  <p>
+    Comparte tu código y explica brevemente
+    cómo resolviste el problema.
+
+    Puedes enviar tu intento incluso si
+    todavía tiene errores.
+  </p>
+
+  <form id="submission-form">
+
+    <div class="form-field">
+      <label for="student-name">
+        Nombre completo
+      </label>
+
+      <input
+        id="student-name"
+        name="student_name"
+        type="text"
+        maxlength="100"
+        autocomplete="name"
+        required
+        placeholder="Tu nombre completo"
+      >
+    </div>
+
+    <div class="form-field">
+      <label for="student-explanation">
+        ¿Cómo funcionan tus dos ciclos for?
+      </label>
+
+      <textarea
+        id="student-explanation"
+        name="explanation"
+        rows="5"
+        maxlength="3000"
+        required
+        placeholder="Explica con tus palabras cómo construiste el algoritmo..."
+      ></textarea>
+    </div>
+
+    <div class="submission-summary">
+      <strong>Código incluido automáticamente</strong>
+
+      <p>
+        Se enviará el contenido actual
+        del editor Python y el último
+        resultado disponible de las pruebas.
+      </p>
+    </div>
+
+    <label class="submission-consent">
+      <input
+        type="checkbox"
+        name="consent"
+        required
+      >
+
+      <span>
+        Acepto enviar mi nombre, código y
+        explicación para su revisión educativa.
+      </span>
+    </label>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      id="submit-solution"
+    >
+      Enviar mi solución
+    </button>
+
+    <div
+      id="submission-status"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </form>
+</section>
+
       <div class="practice-card">
         <h3>
           ¿Necesitas una pista adicional?
@@ -2153,11 +2247,10 @@ function renderChallenge() {
           class="btn btn-ghost"
           data-action="toggle-solution"
         >
-          ${
-            state.revealed
-              ? 'Ocultar solución'
-              : 'Ver solución explicada'
-          }
+          ${state.revealed
+      ? 'Ocultar solución'
+      : 'Ver solución explicada'
+    }
         </button>
 
         ${solution}
@@ -2264,6 +2357,11 @@ function changeSimulationStep(nextStep) {
   });
 }
 
+function invalidateTestResults() {
+  latestTestResults = null;
+  codeRevision += 1;
+}
+
 function restoreStarterCode() {
   const confirmed = window.confirm(
     '¿Restaurar la plantilla? ' +
@@ -2273,6 +2371,8 @@ function restoreStarterCode() {
   if (!confirmed) {
     return;
   }
+
+  invalidateTestResults();
 
   updateState({
     code: STARTER_CODE
@@ -2368,6 +2468,7 @@ function onEditorInput(event) {
   }
 
   state.code = event.target.value;
+  invalidateTestResults();
   saveState();
 }
 
@@ -2391,6 +2492,7 @@ function onEditorKeyDown(event) {
   );
 
   state.code = editor.value;
+  invalidateTestResults();
   saveState();
 }
 
@@ -2553,8 +2655,7 @@ function renderTestResults(results) {
       : ` (esperado: ${expected})`;
 
     return `
-      <div class="test-row ${
-        result.passed ? 'passed' : 'failed'
+      <div class="test-row ${result.passed ? 'passed' : 'failed'
       }">
         ${result.passed ? '✓' : '✕'}
         ${input}
@@ -2620,6 +2721,9 @@ function runPythonTests(source) {
   if (!output || !status || !button) {
     return;
   }
+
+  latestTestResults = null;
+  const testedRevision = codeRevision;
 
   if (source.includes('____')) {
     output.innerHTML = `
@@ -2704,6 +2808,8 @@ function runPythonTests(source) {
   }, EXECUTION_TIMEOUT_MS);
 
   worker.onmessage = ({ data }) => {
+    const isCurrentRun = activePythonWorker === worker;
+
     if (!finish()) {
       return;
     }
@@ -2726,15 +2832,22 @@ function runPythonTests(source) {
     const { passing, html } =
       renderTestResults(data.results);
 
+    if (
+      isCurrentRun &&
+      testedRevision === codeRevision &&
+      source === state.code
+    ) {
+      latestTestResults = data.results;
+    }
+
     status.textContent =
       `${passing} de ${data.results.length} ` +
       'pruebas correctas.';
 
-    status.className = `status ${
-      passing === data.results.length
+    status.className = `status ${passing === data.results.length
         ? 'good'
         : ''
-    }`;
+      }`;
 
     output.innerHTML = html;
   };
@@ -2750,9 +2863,9 @@ function runPythonTests(source) {
     output.innerHTML = `
       <div class="feedback try">
         ${escapeHtml(
-          error.message ||
-          'No pudo iniciarse Python.'
-        )}
+      error.message ||
+      'No pudo iniciarse Python.'
+    )}
       </div>
     `;
   };
@@ -2763,7 +2876,95 @@ function runPythonTests(source) {
 }
 
 // ============================================================
-// 17. INICIALIZACIÓN
+// 17. ENTREGA DE ACTIVIDAD
+// ============================================================
+
+async function submitStudentSolution(event) {
+  const form = event.target;
+
+  if (form.id !== 'submission-form') {
+    return;
+  }
+
+  event.preventDefault();
+
+  const button = form.querySelector('#submit-solution');
+  const status = form.querySelector('#submission-status');
+
+  if (isSubmitting || button.disabled || !form.reportValidity()) {
+    return;
+  }
+
+  const formData = new FormData(form);
+  const studentName = formData.get('student_name').trim();
+  const explanation = formData.get('explanation').trim();
+  const pythonCode =
+    elements.view.querySelector('#code-editor')?.value ?? state.code;
+
+  if (!studentName || !explanation || !pythonCode.trim()) {
+    status.textContent =
+      'Completa todos los campos y escribe tu código.';
+    return;
+  }
+
+  const results = pythonCode === state.code ? latestTestResults : null;
+  const testsPassed = results
+    ? `${results.filter(test => test.passed).length}/${results.length}`
+    : 'No ejecutadas';
+
+  formData.set('student_name', studentName);
+  formData.set('explanation', explanation);
+  formData.set('_subject', `Insertion Sort - ${studentName}`);
+  formData.set('algorithm', 'Insertion Sort');
+  formData.set('python_code', pythonCode);
+  formData.set('tests_passed', testsPassed);
+  formData.set(
+    'missions_completed',
+    `${state.completed.length}/${MISSIONS.length}`
+  );
+  formData.set('submitted_at', new Date().toISOString());
+
+  isSubmitting = true;
+  button.disabled = true;
+  button.textContent = 'Enviando solución…';
+  status.textContent = 'Enviando…';
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      headers: { Accept: 'application/json' }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    status.innerHTML = `
+      <div class="feedback good">
+        <strong>¡Entrega enviada correctamente!</strong>
+        Tu código ha sido recibido para revisión.
+      </div>
+    `;
+    button.textContent = 'Entrega realizada';
+  } catch (error) {
+    console.error('Error de envío:', error);
+
+    status.innerHTML = `
+      <div class="feedback try">
+        No se pudo confirmar la entrega.
+        Verifica tu conexión e inténtalo nuevamente.
+      </div>
+    `;
+    button.disabled = false;
+    button.textContent = 'Reintentar envío';
+  } finally {
+    isSubmitting = false;
+  }
+}
+
+// ============================================================
+// 18. INICIALIZACIÓN
 // ============================================================
 
 function initializeApp() {
@@ -2802,6 +3003,11 @@ function initializeApp() {
     onEditorKeyDown
   );
 
+  elements.view.addEventListener(
+    'submit',
+    submitStudentSolution
+  );
+
   elements.resetButton.addEventListener(
     'click',
     () => elements.resetDialog.showModal()
@@ -2819,6 +3025,7 @@ function initializeApp() {
 
       activePythonWorker?.terminate();
       activePythonWorker = null;
+      invalidateTestResults();
 
       updateState(
         createInitialState()
