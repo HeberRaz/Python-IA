@@ -5,13 +5,14 @@
 
    01. Design tokens
    02. Reset y estilos globales
-   03. Header
-   04. Contenido principal
-   05. Presentación y características
-   06. Actividades
-   07. Footer
-   08. Responsive
-   09. Accesibilidad
+   03. Layout y encabezado
+   04. Presentación
+   05. Características
+   06. Catálogo de algoritmos
+   07. Tarjetas y botones
+   08. Footer
+   09. Responsive
+   10. Accesibilidad
    ============================================================ */
 
 
@@ -22,32 +23,34 @@
 :root {
     color-scheme: dark;
 
-    /* Backgrounds */
+    /* Fondos */
     --background: #0b1220;
     --surface: #111c2e;
     --surface-raised: #172840;
+    --surface-visual: #0d1930;
 
-    /* Borders */
+    /* Bordes */
     --border: #334155;
 
-    /* Typography */
+    /* Texto */
     --text: #f1f5f9;
     --muted: #cbd5e1;
     --subtle: #94a3b8;
 
-    /* Accent colors */
+    /* Colores de interacción */
     --accent: #60a5fa;
     --accent-strong: #2563eb;
+    --accent-hover: #1d4ed8;
     --success: #4ade80;
 
     /* Layout */
     --content-width: 1120px;
     --radius: 16px;
 
-    /* Motion */
+    /* Transiciones */
     --transition-fast: 180ms ease;
 
-    /* Fonts */
+    /* Tipografía */
     --font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -80,6 +83,9 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+
     min-height: 100vh;
     margin: 0;
 
@@ -88,16 +94,13 @@ body {
 
     color: var(--text);
     background: var(--background);
+
+    -webkit-font-smoothing: antialiased;
 }
 
 a {
     color: inherit;
     text-decoration: none;
-}
-
-a:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 4px;
 }
 
 h1,
@@ -108,13 +111,14 @@ p {
 }
 
 code {
-    font-family: var(--font-mono);
-
     padding: 2px 5px;
+
     border-radius: 4px;
 
     background: var(--surface-raised);
     color: var(--text);
+
+    font-family: var(--font-mono);
 }
 
 ::selection {
@@ -124,7 +128,7 @@ code {
 
 
 /* ============================================================
-   03. HEADER
+   03. LAYOUT Y ENCABEZADO
    ============================================================ */
 
 .header {
@@ -134,8 +138,8 @@ code {
 
 .header-inner {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     gap: 16px;
 
@@ -158,6 +162,8 @@ code {
     display: grid;
     place-items: center;
 
+    flex-shrink: 0;
+
     width: 46px;
     height: 46px;
 
@@ -168,6 +174,11 @@ code {
     font-size: 18px;
     font-weight: 700;
     line-height: 1;
+}
+
+.brand-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .eyebrow {
@@ -186,8 +197,8 @@ code {
     margin: 0;
 
     font-size: 20px;
-    line-height: 1.3;
     font-weight: 700;
+    line-height: 1.3;
 }
 
 .header-tag {
@@ -202,12 +213,11 @@ code {
     font-weight: 600;
 }
 
-
-/* ============================================================
-   04. CONTENIDO PRINCIPAL
-   ============================================================ */
+/* Contenedor principal */
 
 main {
+    flex: 1;
+
     width: min(
         var(--content-width),
         calc(100% - 40px)
@@ -219,7 +229,7 @@ main {
 
 
 /* ============================================================
-   05. PRESENTACIÓN Y CARACTERÍSTICAS
+   04. PRESENTACIÓN
    ============================================================ */
 
 .section-kicker {
@@ -248,7 +258,7 @@ main {
     background: var(--accent);
 }
 
-h1 {
+.hero h1 {
     margin: 20px 0 18px;
 
     font-size: clamp(34px, 5vw, 52px);
@@ -258,7 +268,7 @@ h1 {
     line-height: 1.12;
 }
 
-h1 span {
+.hero h1 span {
     color: var(--accent);
 }
 
@@ -269,10 +279,13 @@ h1 span {
     color: var(--muted);
 
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.85;
 }
 
-/* Feature badges */
+
+/* ============================================================
+   05. CARACTERÍSTICAS
+   ============================================================ */
 
 .features {
     display: flex;
@@ -285,8 +298,8 @@ h1 span {
 .feature {
     display: inline-flex;
     align-items: center;
-
     gap: 9px;
+
     padding: 9px 14px;
 
     border: 1px solid var(--border);
@@ -304,15 +317,13 @@ h1 span {
 
 
 /* ============================================================
-   06. ACTIVIDADES
+   06. CATÁLOGO DE ALGORITMOS
    ============================================================ */
-
-/* Section heading */
 
 .section-heading {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
+    justify-content: space-between;
 
     gap: 12px;
     margin: 64px 0 18px;
@@ -332,7 +343,10 @@ h1 span {
     font-size: 12px;
 }
 
-/* Course card */
+
+/* ============================================================
+   07. TARJETAS DE ACTIVIDADES
+   ============================================================ */
 
 .course-card {
     display: flex;
@@ -349,7 +363,8 @@ h1 span {
     transition:
         border-color var(--transition-fast),
         transform var(--transition-fast),
-        background var(--transition-fast);
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
 .course-card:hover {
@@ -357,34 +372,39 @@ h1 span {
     border-color: var(--accent);
 
     transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
-/* Course visualization */
+/* Visualización de barras */
 
 .course-visual {
     display: flex;
-    justify-content: center;
     align-items: flex-end;
+    justify-content: center;
+
+    flex-shrink: 0;
 
     gap: 9px;
     padding: 24px 14px;
 
     width: 180px;
-    min-width: 180px;
     height: 120px;
 
     border-radius: 12px;
-
-    background: #0d1930;
+    background: var(--surface-visual);
 }
-
-/* Sorting bars */
 
 .bar {
     width: 23px;
 
     border-radius: 6px 6px 3px 3px;
     background: var(--accent);
+
+    transition:
+        height var(--transition-fast),
+        transform var(--transition-fast);
 }
 
 .bar:nth-child(1) {
@@ -408,7 +428,11 @@ h1 span {
     background: var(--success);
 }
 
-/* Course content */
+.course-card:hover .bar {
+    transform: translateY(-3px);
+}
+
+/* Información del algoritmo */
 
 .course-body {
     flex: 1;
@@ -435,30 +459,82 @@ h1 span {
 }
 
 .course-body p {
+    max-width: 700px;
     margin: 0;
 
     color: var(--muted);
 
     font-size: 14px;
-    line-height: 1.7;
-}
-
-.open-label {
-    display: inline-flex;
-    align-items: center;
-
-    gap: 7px;
-    margin-top: 16px;
-
-    color: var(--accent);
-
-    font-size: 13px;
-    font-weight: 750;
+    line-height: 1.75;
 }
 
 
 /* ============================================================
-   07. FOOTER
+   BOTÓN VISUAL DE ACCESO
+   ============================================================ */
+
+/*
+ * La tarjeta completa es un enlace.
+ * Este componente es un span con apariencia
+ * de botón, no un botón HTML anidado.
+ */
+
+.course-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 44px;
+
+    margin-top: 22px;
+    padding: 12px 22px;
+
+    border-radius: 10px;
+
+    background: var(--accent-strong);
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.3;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.12);
+
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.course-card:hover .course-button,
+.course-card:focus-visible .course-button {
+    background: var(--accent-hover);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.3);
+}
+
+.course-button-arrow {
+    display: inline-block;
+
+    font-size: 19px;
+    line-height: 1;
+
+    transition: transform var(--transition-fast);
+}
+
+.course-card:hover .course-button-arrow,
+.course-card:focus-visible .course-button-arrow {
+    transform: translateX(4px);
+}
+
+
+/* ============================================================
+   08. FOOTER
    ============================================================ */
 
 .footer {
@@ -468,8 +544,9 @@ h1 span {
 
 .footer-inner {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
     gap: 16px;
 
@@ -491,7 +568,7 @@ h1 span {
 
 
 /* ============================================================
-   08. RESPONSIVE
+   09. RESPONSIVE
    ============================================================ */
 
 @media (max-width: 640px) {
@@ -504,6 +581,14 @@ h1 span {
         padding: 48px 0 64px;
     }
 
+    .hero h1 {
+        font-size: clamp(30px, 8vw, 42px);
+    }
+
+    .lead {
+        font-size: 14px;
+    }
+
     .section-heading {
         align-items: flex-start;
         flex-direction: column;
@@ -513,12 +598,17 @@ h1 span {
         flex-direction: column;
         align-items: stretch;
 
+        gap: 20px;
         padding: 18px;
     }
 
     .course-visual {
         width: 100%;
         min-width: 0;
+    }
+
+    .course-button {
+        width: 100%;
     }
 
     .footer-inner {
@@ -529,10 +619,47 @@ h1 span {
     }
 }
 
+@media (max-width: 380px) {
+
+    .header-inner {
+        width: calc(100% - 28px);
+    }
+
+    .brand-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .eyebrow {
+        font-size: 9px;
+    }
+
+    .brand-title {
+        font-size: 18px;
+    }
+
+    main {
+        width: calc(100% - 28px);
+    }
+
+    .course-body h3 {
+        font-size: 22px;
+    }
+
+    .course-button {
+        padding: 12px;
+    }
+}
+
 
 /* ============================================================
-   09. ACCESIBILIDAD
+   10. ACCESIBILIDAD
    ============================================================ */
+
+.course-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+}
 
 @media (prefers-reduced-motion: reduce) {
 

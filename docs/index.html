@@ -14,6 +14,8 @@
         content="Aprende algoritmos de programación mediante actividades interactivas, simuladores y retos en Python."
     >
 
+    <meta name="theme-color" content="#0b1220">
+
     <title>Laboratorio de Algoritmos | Python-IA</title>
 
     <link rel="stylesheet" href="./style.css">
@@ -21,15 +23,16 @@
 
 <body>
 
+    <!-- Encabezado principal -->
     <header class="header">
         <div class="header-inner">
 
             <div class="brand">
-                <div class="brand-icon">
+                <div class="brand-icon" aria-hidden="true">
                     { }
                 </div>
 
-                <div>
+                <div class="brand-content">
                     <span class="eyebrow">
                         LABORATORIO DE ALGORITMOS
                     </span>
@@ -49,13 +52,14 @@
 
     <main>
 
-        <section class="hero">
+        <!-- Presentación -->
+        <section class="hero" aria-labelledby="hero-title">
 
             <div class="section-kicker">
                 APRENDIZAJE INTERACTIVO
             </div>
 
-            <h1>
+            <h1 id="hero-title">
                 Descubre los algoritmos.
                 <br>
                 <span>No los memorices.</span>
@@ -63,25 +67,35 @@
 
             <p class="lead">
                 Aprende a construir algoritmos desde cero,
-                desarrollando tu razonamiento lógico
-                mediante explicaciones, preguntas guiadas
-                y ejercicios interactivos.
+                desarrollando tu razonamiento lógico mediante
+                explicaciones, preguntas guiadas y ejercicios
+                interactivos.
+
+                Descubre por qué funciona cada instrucción
+                antes de escribir el código.
             </p>
 
+            <!-- Características del laboratorio -->
             <div class="features">
 
                 <span class="feature">
-                    <span class="feature-symbol">◈</span>
+                    <span class="feature-symbol" aria-hidden="true">
+                        ◈
+                    </span>
                     Misiones guiadas
                 </span>
 
                 <span class="feature">
-                    <span class="feature-symbol">◉</span>
+                    <span class="feature-symbol" aria-hidden="true">
+                        ◉
+                    </span>
                     Simuladores interactivos
                 </span>
 
                 <span class="feature">
-                    <span class="feature-symbol">⌘</span>
+                    <span class="feature-symbol" aria-hidden="true">
+                        ⌘
+                    </span>
                     Retos en Python
                 </span>
 
@@ -89,18 +103,30 @@
 
         </section>
 
-        <section class="activities">
+        <!-- Catálogo de algoritmos -->
+        <section
+            class="activities"
+            aria-labelledby="activities-title"
+        >
 
             <div class="section-heading">
-                <h2>Algoritmos disponibles</h2>
-                <p>Selecciona una actividad para comenzar</p>
+                <h2 id="activities-title">
+                    Algoritmos disponibles
+                </h2>
+
+                <p>
+                    Selecciona una actividad para comenzar
+                </p>
             </div>
 
+            <!-- Tarjeta de Insertion Sort -->
             <a
                 class="course-card"
                 href="./algorithms/insertion-sort/"
+                aria-label="Comenzar laboratorio de Insertion Sort"
             >
 
+                <!-- Visualización decorativa -->
                 <div class="course-visual" aria-hidden="true">
                     <div class="bar"></div>
                     <div class="bar"></div>
@@ -109,24 +135,43 @@
                     <div class="bar"></div>
                 </div>
 
+                <!-- Información de la actividad -->
                 <div class="course-body">
 
                     <span class="course-label">
                         ALGORITMO DE ORDENAMIENTO
                     </span>
 
-                    <h3>Insertion Sort</h3>
+                    <h3>
+                        Insertion Sort
+                    </h3>
 
                     <p>
                         Descubre cómo ordenar una lista
                         construyendo progresivamente una
-                        región ordenada y aprende a
-                        implementar el algoritmo
-                        utilizando dos ciclos for.
+                        región ordenada.
+
+                        Aprende a implementar el algoritmo
+                        mediante razonamiento guiado,
+                        fundamentos teóricos, simulaciones
+                        y dos ciclos for.
                     </p>
 
-                    <span class="open-label">
-                        Comenzar laboratorio →
+                    <!--
+                        Botón visual:
+                        La tarjeta completa es un enlace.
+                        Por eso utilizamos un span y no
+                        un botón dentro de otro enlace.
+                    -->
+                    <span class="course-button">
+                        Comenzar laboratorio
+
+                        <span
+                            class="course-button-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
                     </span>
 
                 </div>
@@ -137,12 +182,17 @@
 
     </main>
 
+    <!-- Pie de página -->
     <footer class="footer">
         <div class="footer-inner">
 
-            <p>Python-IA · Laboratorio de Algoritmos</p>
+            <p>
+                Python-IA · Laboratorio de Algoritmos
+            </p>
 
-            <p>Aprende · Experimenta · Programa</p>
+            <p>
+                Aprende · Experimenta · Programa
+            </p>
 
         </div>
     </footer>
